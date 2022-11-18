@@ -1,8 +1,8 @@
 package model
 
-class Filme(
+data class Filme(
     val titulo: String,
-    val image: String,
+    val imagem: String,
     val nota: Double,
     val ano: Int
 )

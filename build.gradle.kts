@@ -27,6 +27,7 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation("com.google.code.gson:gson:2.10")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
             }
         }
         val jvmTest by getting
