@@ -1,9 +1,12 @@
+
 import androidx.compose.desktop.ui.tooling.preview.Preview
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
@@ -29,14 +32,15 @@ import model.Top250DataDetail
 import org.jetbrains.skia.Image
 import java.net.URL
 
+@ExperimentalFoundationApi
 fun main() = application {
     val filmes = remember { retornaListaFilmesApi() }
-
     Window(onCloseRequest = ::exitApplication, title = "IMDB") {
         App(filmes)
     }
 }
 
+@ExperimentalFoundationApi
 @Composable
 @Preview
 fun App(filmes: Top250Data) {
@@ -47,7 +51,7 @@ fun App(filmes: Top250Data) {
                     .scrollable(state = rememberScrollState(), orientation = Orientation.Vertical)
                     .padding(5.dp)
             ) {
-                LazyColumn {
+                LazyVerticalGrid(cells = GridCells.Adaptive(250.dp)) {
                     items(filmes.items) { filme ->
                         MovieItem(filme)
                     }
