@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import com.google.gson.Gson
 import model.Filme
 import org.jetbrains.skia.Image
 import java.net.URL
@@ -36,11 +37,21 @@ fun main() = application {
 @Preview
 fun App() {
     val filmes = remember { retornaListaFilmes() }
+
+    val urlIMDB = "https://imdb-api.com/en/API/Top250Movies/k_zy4q2zi4"
+    val data = URL(urlIMDB).openStream().use { it.readBytes() }
+    val gson = Gson()
+    val dataJson = gson.toJson(String(data))
+
+    println(String(data))
+
     MaterialTheme(colors = darkColors()) {
         Surface(modifier = Modifier.fillMaxSize()) {
-            Box(modifier = Modifier.wrapContentSize()
-                .scrollable(state = rememberScrollState(), orientation = Orientation.Vertical)
-                .padding(5.dp)) {
+            Box(
+                modifier = Modifier.wrapContentSize()
+                    .scrollable(state = rememberScrollState(), orientation = Orientation.Vertical)
+                    .padding(5.dp)
+            ) {
                 LazyColumn {
                     items(filmes) { filme ->
                         MovieItem(filme = filme)
